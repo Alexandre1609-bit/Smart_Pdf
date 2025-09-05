@@ -1,22 +1,22 @@
-Smart PDF Assistant
+# Smart PDF Assistant
 
-Description :
-Analyze and generate reports based on uploaded PDF files.
+**Description:**
+Smart PDF Assistant is a tool to analyze PDF files and generate comprehensive reports, making data extraction and visualization easy and efficient.
 
-Features :
+**Features:**
 
-Extract text from PDF files using PyMuPDF
-Analyze CSV and Excel files using pandas
-Generate charts and visualizations using Matplotlib and Seaborn
-Fetch data from APIs using requests
-Export reports to Excel (pandas.to_excel()) and PDF (reportlab and/or fpdf2)
-Interface options: Tkinter (desktop) and Streamlit (web)
+* Extract text from PDF files using PyMuPDF
+* Analyze CSV and Excel files with pandas
+* Create charts and visualizations using Matplotlib and Seaborn
+* Fetch data from APIs using requests
+* Export reports to Excel (via pandas.to\_excel()) and PDF (using reportlab or fpdf2)
+* User-friendly interfaces with Tkinter (desktop) and Streamlit (web)
 
-Tech Stack / Libraries:
+**Tech Stack / Libraries:**
 
-PDF Extraction: PyMuPDF
-Data Analysis: pandas
-Visualization: Matplotlib, Seaborn
-API Calls: requests
-Report Export: pandas.to_excel(), reportlab, fpdf2
-Interface: Tkinter, Streamlit
+* **PDF Extraction:** PyMuPDF
+* **Data Analysis:** pandas
+* **Visualization:** Matplotlib, Seaborn
+* **API Calls:** requests
+* **Report Export:** pandas.to\_excel(), reportlab, fpdf2
+* **Interface:** Tkinter, Streamlit
