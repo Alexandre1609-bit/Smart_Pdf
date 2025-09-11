@@ -1,5 +1,4 @@
-import pymupdf 
-
+import pymupdf  
 
 def get_book_content():
     while True:
@@ -10,27 +9,23 @@ def get_book_content():
         except:
             print("File not found")
             continue
+
     num_pages = doc.page_count
     book_content = []
-    for i in range(0, num_pages):
+    for i in range(num_pages):
         page = doc.load_page(i)
         page_text = page.get_text("text")
-        raw_txt = page_text.replace("\t","")
+        raw_txt = page_text.replace("\t", "")
         book_content.append(raw_txt)
         book_content.append(f"\n\n --- page {i+1} break --- \n\n")
     return book_content
 
-
 def txt_write(book_content):
-
-    with  open(input("Choose file's name: ") + ".txt", "w", encoding="utf-8") as f:
+    with open("output.txt", "w", encoding="utf-8") as f:
         f.write("".join(book_content))
-    
+
 data = get_book_content()
-txt_write(data)
-
-
-
-
+cleaned = [page.lower() for page in data]
+txt_write(cleaned)
 
 
