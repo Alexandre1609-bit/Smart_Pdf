@@ -6,25 +6,25 @@ import numpy as np
 import pandas as pd
 
 def get_book_content():
-    pdf_path = input("Select file: ")
+    pdf_path = input("Select file (full path or in folder): ")
     doc = pymupdf.open(pdf_path)
     num_pages = doc.page_count
 
     all_rows = []
     all_pages = []
 
-    for i in range(num_pages):
-        page = doc.load_page(i)
-        page_dict = {"page": i+1, "text": [], "graphics": [], "images": [], "ocr": []}
+    for page_num in range(num_pages):
+        page = doc.load_page(page_num)
+        page_dict = {"page": page_num+1, "text": [], "graphics": [], "images": [], "ocr": []}
 
         # --- Text extraction ---
         pdf_data = page.get_text("dict")
         for block in pdf_data["blocks"]:
-            if block["type"] == 0:  # text block
+            if block["type"] == 0:
                 for line in block.get("lines", []):
                     line_text = " ".join(span["text"] for span in line["spans"])
                     page_dict["text"].append(line_text)
-                    all_rows.append({"page": i+1, "text": line_text})
+                    all_rows.append({"page": page_num+1, "text": line_text})
 
         # --- Graphics ---
         page_dict["graphics"] = page.get_drawings()
@@ -47,11 +47,15 @@ def get_book_content():
             for j in range(len(ocr_data['text'])):
                 if float(ocr_data['conf'][j]) > 80:
                     page_dict["ocr"].append(ocr_data['text'][j])
-            # save annotated image
-            cv2.imwrite(f"page_{i+1}_ocr.png", cv_img)
+            cv2.imwrite(f"page_{page_num+1}_ocr.png", cv_img)
 
         all_pages.append(page_dict)
 
-    # Convert text to DataFrame
     df = pd.DataFrame(all_rows)
     return all_pages, df
+
+if __name__ == "__main__":
+    pages, df = get_book_content()
+    print(f"Extracted {len(pages)} pages and {len(df)} text lines.")
+    df.to_csv("output_text.csv", index=False)
+    print("Saved output_text.csv")
